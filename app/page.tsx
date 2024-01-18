@@ -1,12 +1,17 @@
-import { WordleProvider } from '@/components/WordleProvider';
 import styles from './page.module.scss';
 import { Grid } from '@/components/Grid/Grid';
+import { Keyboard } from '@/components/Keyboard/Keyboard';
+import { WordleProvider } from '@/components/WordleProvider/WordleProvider';
+import { getWord } from '@/services/getWord';
 
-export default function Home() {
+export default async function Home() {
+	const word = await getWord();
+	console.log('🚀 ~ Home ~ word:', word);
 	return (
-		<WordleProvider>
+		<WordleProvider word={word as string}>
 			<main className={styles.main}>
 				<Grid />
+				<Keyboard />
 			</main>
 		</WordleProvider>
 	);

@@ -3,13 +3,12 @@ import styles from './Row.module.scss';
 
 interface RowProps {
 	letterArr: string[];
-	attempt: number;
 }
-export const Row = ({ letterArr, attempt }: RowProps) => {
+export const Row = ({ letterArr }: RowProps) => {
 	return (
 		<div className={styles['row']}>
 			{letterArr.map((letter, idx) => (
-				<Letter key={idx} letter={letter} />
+				<Letter key={idx} letter={letter} pos={idx} />
 			))}
 		</div>
 	);

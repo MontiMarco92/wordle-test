@@ -8,4 +8,20 @@
   align-items: center;
   justify-content: center;
   padding: 4px;
+
+  &.filled {
+    border: 1px solid gray
+  }
+
+  &.correct {
+    background-color: lightgreen;
+    color: #fff;
+    border: none
+  }
+
+  &.disordered {
+    background-color: #f3c237;
+    color: #fff;
+    border: none
+  }
 }
