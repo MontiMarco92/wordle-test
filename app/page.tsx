@@ -6,7 +6,6 @@ import { getWord } from '@/services/getWord';
 
 export default async function Home() {
 	const word = await getWord();
-	console.log('🚀 ~ Home ~ word:', word);
 	return (
 		<WordleProvider word={word as string}>
 			<main className={styles.main}>

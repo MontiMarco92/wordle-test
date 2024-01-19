@@ -16,12 +16,33 @@
     background-color: #fff;
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: var(--gap-x2);
     min-width: 300px;
+    align-items: center;
 
     .close-icon {
       align-self: end;
       cursor: pointer;
+    }
+
+    .msg {
+      font-size: var(--fsize-md);
+      margin: 8px 0;
+    }
+    
+    .correct-word {
+      color: var(--cell-bg-right);
+      font-weight: 600;
+    }
+
+    .btn {
+      background-color: var(--bg-keyboard-keys-used);
+      border: none;
+      border-radius: var(--border-radius);
+      padding: 20px;
+      cursor: pointer;
+      color: var(--text-light);
+      font-size: var(--fsize-sm);
     }
   }
 }

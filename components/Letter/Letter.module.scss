@@ -2,26 +2,34 @@
 .letter {
   height: 50px;
   width: 50px;
-  border: 1px solid lightgray;
-  border-radius: 6px;
+  border: 1px solid var(--cell-border-default);
+  border-radius: var(--border-radius);
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 4px;
+  color: var(--text-dark);
+  font-size: var(--fsize-md);
 
   &.filled {
-    border: 1px solid gray
+    border: 1px solid var(--cell-border-filled);
   }
 
   &.correct {
-    background-color: lightgreen;
-    color: #fff;
-    border: none
+    background-color: var(--cell-bg-right);
+    color: var(--text-light);
+    border: none;
   }
 
   &.disordered {
-    background-color: #f3c237;
-    color: #fff;
-    border: none
+    background-color: var(--cell-bg-wrong);
+    color: var(--text-light);
+    border: none;
+  }
+
+  &.wrong {
+    background-color: var(--cell-bg-used);
+    color: var(--text-light);
+    border:none
   }
 }

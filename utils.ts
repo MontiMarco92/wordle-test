@@ -20,4 +20,3 @@ export const WORD_API_BASE_URL = process.env['WORD_API_BASE_URL'] as string;
 export const CHECK_API_BASE_URL = process.env[
 	'NEXT_PUBLIC_CHECK_API_BASE_URL'
 ] as string;
-console.log('🚀 ~ CHECK_API_BASE_URL:', CHECK_API_BASE_URL);

@@ -12,7 +12,7 @@ export const Keyboard = () => {
 		enterHandler,
 		currentAttempt,
 		showModal,
-		setShowModal,
+		usedLetters,
 	} = useWordleContext();
 
 	const handleKeyPress = useCallback(
@@ -41,18 +41,18 @@ export const Keyboard = () => {
 		<div className={styles['container']}>
 			<div className={styles['row']}>
 				{keyboardLetters[0].map((key, idx) => (
-					<Key key={idx} value={key} />
+					<Key key={idx} value={key} alreadyUsed={usedLetters.includes(key)} />
 				))}
 			</div>
 			<div className={styles['row']}>
 				{keyboardLetters[1].map((key, idx) => (
-					<Key key={idx} value={key} />
+					<Key key={idx} value={key} alreadyUsed={usedLetters.includes(key)} />
 				))}
 			</div>
 			<div className={styles['row']}>
 				<Key value={'BACKSPACE'} />
 				{keyboardLetters[2].map((key, idx) => (
-					<Key key={idx} value={key} />
+					<Key key={idx} value={key} alreadyUsed={usedLetters.includes(key)} />
 				))}
 				<Key value={'ENTER'} />
 			</div>

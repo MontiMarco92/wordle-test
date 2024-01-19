@@ -6,7 +6,15 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: skyblue;
-  border-radius: 4px;
+  background-color: var(--bg-keyboard-keys);
+  border-radius: var(--border-radius);
   padding: 8px;
+  font-size: var(--fsize-sm);
+  color: var(--text-dark);
+  cursor: pointer;
+
+  &.used {
+    background-color: var(--bg-keyboard-keys-used);
+    color: var(--text-light)
+  }
 }

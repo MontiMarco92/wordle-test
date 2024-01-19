@@ -22,6 +22,8 @@ export interface WordleContextType {
 	correctWord: string;
 	showModal: showModalStateType;
 	setShowModal: Dispatch<SetStateAction<showModalStateType>>;
+	usedLetters: string[];
+	setUsedLetters: Dispatch<SetStateAction<string[]>>;
 }
 
 export const WordleContext = createContext<WordleContextType | null>(null);
@@ -51,6 +53,8 @@ export const WordleProvider = ({
 		show: false,
 		type: '',
 	});
+	const [gameOver, setGameOver] = useState(false);
+	const [usedLetters, setUsedLetters] = useState<string[]>(['']);
 
 	const selectKeyHandler = (key: string) => {
 		if (currentAttempt.letterPos > 4) return;
@@ -80,11 +84,24 @@ export const WordleProvider = ({
 
 	const enterHandler = async () => {
 		console.log(currentAttempt, 'currentAttempt');
+		if (showModal.show) {
+			setShowModal({ show: false, type: '' });
+			return;
+		}
+
+		//refresh to restart game
+		if (gameOver) {
+			console.log('enter refreshhh');
+			setGameOver(false);
+			window.location.reload();
+			return;
+		}
+
+		//prevent ex enter if word is not complete
 		if (currentAttempt.letterPos !== 5) return;
+
 		const wordToCheck = grid[currentAttempt.attempt].join('');
-		console.log('🚀 ~ enterHandler ~ wordToCheck:', wordToCheck);
 		const isValidWord = await checkWord(wordToCheck);
-		console.log('🚀 ~ enterHandler ~ isValidWord:', isValidWord);
 
 		//not a valid word entered
 		if (!isValidWord) {
@@ -93,15 +110,20 @@ export const WordleProvider = ({
 		}
 
 		//game over
-		if (currentAttempt.attempt === 5) {
+		if (currentAttempt.attempt === 5 && wordToCheck !== correctWord) {
 			setShowModal({ show: true, type: 'game-over' });
+			setGameOver(true);
+			return;
+		}
+
+		//game won
+		if (wordToCheck === correctWord) {
+			setShowModal({ show: true, type: 'ok' });
+			setGameOver(true);
+			return;
 		}
 
 		setCurrentAttempt({ attempt: currentAttempt.attempt + 1, letterPos: 0 });
-
-		if (showModal.show && currentAttempt.attempt > 5) {
-			setShowModal({ show: false, type: '' });
-		}
 	};
 
 	return (
@@ -116,6 +138,8 @@ export const WordleProvider = ({
 				enterHandler,
 				showModal,
 				setShowModal,
+				usedLetters,
+				setUsedLetters,
 			}}
 		>
 			<div className={styles['container']}>

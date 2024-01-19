@@ -1,6 +1,6 @@
 'use client';
 import styles from './Modal.module.scss';
-import { Dispatch, SetStateAction, useEffect } from 'react';
+import { Dispatch, SetStateAction } from 'react';
 import Image from 'next/image';
 import CloseIcon from '../../public/close.svg';
 import SuccesImg from '../../public/congratulation.png';
@@ -10,13 +10,8 @@ import {
 	useWordleContext,
 } from '../WordleProvider/WordleProvider';
 
-interface ModalProps {
-	setShowModal: Dispatch<SetStateAction<showModalStateType>>;
-	showModal: showModalStateType;
-}
-
 export const Modal = () => {
-	const { showModal, setShowModal } = useWordleContext();
+	const { showModal, setShowModal, correctWord } = useWordleContext();
 	const msgToShow = (key: showModalStateType['type']) => {
 		const obj = {
 			invalid: "That's not a valid word!",
@@ -28,7 +23,7 @@ export const Modal = () => {
 	};
 
 	const showResultIcon =
-		showModal.type === 'game-over' || showModal.type === 'invalid';
+		showModal.type === 'game-over' || showModal.type === 'ok';
 
 	return (
 		<div className={styles['container']}>
@@ -45,9 +40,26 @@ export const Modal = () => {
 					<Image
 						src={showModal.type === 'ok' ? SuccesImg : GameOverImg}
 						alt='Game result image'
+						width={70}
+						height={70}
 					/>
 				)}
-				<p>{msgToShow(showModal.type)}</p>
+				<p className={styles['msg']}>{msgToShow(showModal.type)}</p>
+				{showResultIcon && (
+					<>
+						<p className={styles['msg']}>
+							The correct word is{' '}
+							<span className={styles['correct-word']}>{correctWord}</span>
+						</p>
+
+						<button
+							className={styles['btn']}
+							onClick={() => window.location.reload()}
+						>
+							Try Again!
+						</button>
+					</>
+				)}
 			</div>
 		</div>
 	);

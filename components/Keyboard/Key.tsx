@@ -1,8 +1,15 @@
 import { backspaceKey, enterKey } from '@/utils';
 import { useWordleContext } from '../WordleProvider/WordleProvider';
 import styles from './Key.module.scss';
+import clsx from 'clsx';
 
-export const Key = ({ value }: { value: string }) => {
+export const Key = ({
+	value,
+	alreadyUsed = false,
+}: {
+	value: string;
+	alreadyUsed?: boolean;
+}) => {
 	const { selectKeyHandler, deleteHandler, enterHandler } = useWordleContext();
 
 	const clickHandler = () => {
@@ -12,7 +19,10 @@ export const Key = ({ value }: { value: string }) => {
 	};
 
 	return (
-		<div className={styles['key']} onClick={clickHandler}>
+		<div
+			className={clsx(styles['key'], { [styles['used']]: alreadyUsed })}
+			onClick={clickHandler}
+		>
 			{value}
 		</div>
 	);
